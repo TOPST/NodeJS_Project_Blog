@@ -7,11 +7,20 @@ const Article = require('./models/article');
 const articleRouter = require('./routes/articles');
 const app = express();
 
-mongoose.connect('mongodb://localhost/blog', { 
+//mongoose.connect('mongodb://localhost/blog', { 
+//	useNewUrlParser: true, 
+//	useUnifiedTopology: true,
+//	useCreateIndex: true,
+//})
+
+mongoose.connect(process.env.DATABASE_URL, { 
 	useNewUrlParser: true, 
 	useUnifiedTopology: true,
 	useCreateIndex: true,
-})
+});
+const db = mongoose.connection;
+db.on('error', error => console.error(error));
+db.once('open', () => console.log('MongoDB connected.'));
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
