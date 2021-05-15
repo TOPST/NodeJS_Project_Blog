@@ -47,7 +47,7 @@ function saveArticleAndRedirect(path){
 			article = await article.save();
 			res.redirect('/articles/' + article.slug);
 		} catch (e) {
-			res.render('articles/' + path, { article: article, title: 'title' });
+			res.render('articles/' + path, { article: article, title: 'New article - Please Retry' });
 		}
 	}
 };
