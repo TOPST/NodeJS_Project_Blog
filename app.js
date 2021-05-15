@@ -13,7 +13,7 @@ const app = express();
 //	useCreateIndex: true,
 //})
 
-mongoose.connect(process.env.DATABASE_URL, { 
+mongoose.connect(process.env.DATABASE_URL || 'mongodb://localhost/blog', { 
 	useNewUrlParser: true, 
 	useUnifiedTopology: true,
 	useCreateIndex: true,
@@ -36,4 +36,4 @@ app.get('/', async (req, res) => {
 
 app.use('/articles', articleRouter);
 
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
