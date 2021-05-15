@@ -1,0 +1,8 @@
+<div class="container">
+	<h1><%= article.title %></h1>
+	<div><%= article.createdAt.toLocaleDateString() %></div>
+	<div><%= article.description %></div>
+	<div><%- article.sanitizedHtml %></div>
+	<a href="/articles" class="cancel-bouton">All articles</a>
+	<a href="/articles/edit/<%= article.id %>" class="edit-bouton">Edit</a>
+</div>
