@@ -1,0 +1,11 @@
+<div class="container">
+	<h1>Log In</h1>
+	<form action="/login" method="POST">
+		<%- include('./../forms/_form_user_email') %>
+		<%- include('./../forms/_form_user_password') %>
+		<br>
+		<a href="/" class="cancel-button">Cancel</a>
+		<a href="/register" class="submit-button">Register</a>
+		<button type="submit" class="submit-button">Submit</button>
+	</form>
+</div>

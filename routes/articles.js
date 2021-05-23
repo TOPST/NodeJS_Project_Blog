@@ -1,25 +1,41 @@
+// Import packages.
 const express = require('express');
-const Article = require('./../models/article');
 const router = express.Router();
 
+// Imports models.
+const Article = require('./../models/article');
+
+// Routes.
 router.get('/', async (req, res) => {
 	const articles = await Article.find().sort({ createdAt: 'desc'});
-	res.render('articles/home', { articles: articles, title: 'Home' });
+	res.render('articles/article_main', { 
+		articles: articles, 
+		title: 'Home' 
+	});
 });
 
 router.get('/new', (req, res) => {
-	res.render('articles/new_article', { article: new Article(), title: 'New article' });
+	res.render('articles/new_article', { 
+		article: new Article(), 
+		title: 'New article' 
+	});
 });
 
 router.get('/edit/:id', async (req, res) => {
 	const article = await Article.findById(req.params.id);
-	res.render('articles/edit_article', { article: article, title: 'Edit : ' + article.title });
+	res.render('articles/edit_article', { 
+		article: article, 
+		title: 'Edit : ' + article.title 
+	});
 });
 
-router.get('/:slug', async (req, res) => {
-	const article = await Article.findOne({ slug: req.params.slug });
+router.get('/:id', async (req, res) => {
+	const article = await Article.findById(req.params.id);
 	if (article == null) {res.redirect('/')};
-	res.render('articles/show_article', { article: article, title: article.title });
+	res.render('articles/show_article', { 
+		article: article, 
+		title: article.title 
+	});
 });
 
 router.post('/', async (req, res, next) => {
@@ -37,6 +53,7 @@ router.delete('/:id', async (req, res) => {
 	res.redirect('/articles');
 });
 
+// Functions.
 function saveArticleAndRedirect(path){
 	return async (req, res) => {
 		let article = req.article;
@@ -45,11 +62,16 @@ function saveArticleAndRedirect(path){
 		article.markdown = req.body.markdown;
 		try {
 			article = await article.save();
-			res.redirect('/articles/' + article.slug);
+			res.redirect('/articles/' + article.id);
 		} catch (e) {
-			res.render('articles/' + path, { article: article, title: 'New article - Please Retry' });
-		}
-	}
+			console.log(e);
+			res.render('articles/' + path, { 
+				article: article, 
+				title: 'New article - Please Retry' 
+			});
+		};
+	};
 };
 
+// Export routes.
 module.exports = router;

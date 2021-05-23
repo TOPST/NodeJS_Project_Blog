@@ -1,0 +1,8 @@
+<h1>Home Page</h1>
+<a href="/register" class="submit-button">Register</a>
+<br>
+<a href="/login" class="submit-button">Log In</a>
+<br>
+<% if(user.authId){ %>
+<a href="/account/<%= user.authId %>" class="submit-button">User account</a>
+<% } %>

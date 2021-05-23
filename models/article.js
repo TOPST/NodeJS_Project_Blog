@@ -1,3 +1,4 @@
+// Import packages.
 const mongoose = require('mongoose');
 const marked = require('marked');
 const slugify = require('slugify');
@@ -5,7 +6,7 @@ const createDomPurify = require('dompurify');
 const { JSDOM } = require('jsdom');
 const dompurify = createDomPurify(new JSDOM().window);
 
-
+// Define the model properties.
 const articleSchema = new mongoose.Schema({
 	title: {
 		type: String,
@@ -29,12 +30,10 @@ const articleSchema = new mongoose.Schema({
 	},
 	sanitizedHtml: {
 		type: String,
-		required: true,
 	},
 });
 
-// strict : permet de se débarasser de tout type de caractère qui ne
-// serait pas approprié dans un url.
+// Functions.
 articleSchema.pre('validate', function(next){
 	if(this.title) {
 		this.slug = slugify(this.title, { lower: true, strict: true }) + '-' + this.id.substring(this.id.length - 3);
@@ -45,4 +44,5 @@ articleSchema.pre('validate', function(next){
 	next();
 });
 
+// Export model.
 module.exports = mongoose.model('Article', articleSchema)

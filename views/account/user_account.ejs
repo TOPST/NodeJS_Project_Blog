@@ -1,0 +1,7 @@
+<div class="container">
+	<h1><%= user.first_name[0].toUpperCase() + user.first_name.slice(1).toLowerCase() + " " + user.last_name.toUpperCase() %></h1>
+	<div><%= user.email %></div>
+	<a href="/" class="cancel-bouton">Return Home</a>
+	<a href="/account/<%= user.id %>/logout" class="cancel-bouton">Log Out</a>
+	<a href="/account/edit/<%= user.id %>" class="edit-bouton">Edit</a>
+</div>
