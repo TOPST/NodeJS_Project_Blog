@@ -32,12 +32,12 @@ function loginUserAndRedirect(path){
 					res.cookie('authToken', token, { 
 						httpOnly: true,
 						sameSite: 'Strict',
-						//secure: true 
+						secure: true 
 					});
 					res.cookie('authId', user.id, { 
 						httpOnly: true,
 						sameSite: 'Strict',
-						//secure: true 
+						secure: true 
 					});
 					res.redirect('/account/' + user.id);
 				};
